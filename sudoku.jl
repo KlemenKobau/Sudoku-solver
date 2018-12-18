@@ -70,7 +70,7 @@ function solveSudokuHevristic(sudoku,sudoku_map,sudoku_hevristic = nothing)
 		sudoku_hevristic = map(is_zero,sudoku)
 	end
 	start = findmax(sudoku_hevristic)[2]
-	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,BigInt(0))
+	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,Int128(0))
 end
 
 #=
@@ -97,9 +97,9 @@ function solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,curr,num_steps)
 			# if we found a solution
 			if solution[1]
 				return solution
-			# if we didn't find a solution, add the number of required steps for the subtree to the total
+			# if we didn't find a solution, change the number of steps to that of the subtree
 			else
-				num_steps += solution[2]
+				num_steps = solution[2]
 			end
 			# cleanup if a solution was not found
 			sudoku_hevristic[curr] = hevristic
