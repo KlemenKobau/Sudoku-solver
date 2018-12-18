@@ -51,8 +51,7 @@ end
 #=
 	sudoku -> the sudoku grid, can have some numbers already filled
 	sudoku_map -> the colormap for the sudoku, a color cannot have two numbers with the same value
-	sudoku_hevristic -> optional, which fields the sudoku solver prioritizes, if provided, filled fields on the sudoku board must have hevristic 0, otherwise they can be overriden,
-						if not provided all fields have an equal pripority, the solver will solve up to down, left to right
+	sudoku_hevristic -> optional, which fields the sudoku solver prioritizes, if not provided all fields have an equal pripority, the solver will solve up to down, left to right
 	returns (solution_found, number of steps, sudoku)
 		solution_found -> boolean, weather a solution was found or not
 		number of steps -> number of different numbers tried to arrive to the returned sudoku
@@ -68,7 +67,11 @@ function solveSudokuHevristic(sudoku,sudoku_map,sudoku_hevristic = nothing)
 
 	if sudoku_hevristic == nothing
 		sudoku_hevristic = map(is_zero,sudoku)
+	else
+		values = map(is_zero,sudoku)
+		sudoku_hevristic = sudoku_hevristic .* values
 	end
+	
 	start = findmax(sudoku_hevristic)[2]
 	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,Int64(0))
 end
