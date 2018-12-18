@@ -70,7 +70,7 @@ function solveSudokuHevristic(sudoku,sudoku_map,sudoku_hevristic = nothing)
 		sudoku_hevristic = map(is_zero,sudoku)
 	end
 	start = findmax(sudoku_hevristic)[2]
-	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,Int128(0))
+	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,BigInt(0))
 end
 
 #=
@@ -108,3 +108,7 @@ function solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,curr,num_steps)
 	end
 	return (false,num_steps,sudoku)
 end
+
+sudoku_map = createNormalSudokuMap()
+sudoku = createSudoku(sudoku_map)
+println(solveSudokuHevristic(sudoku,sudoku_map))
