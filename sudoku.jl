@@ -70,7 +70,7 @@ function solveSudokuHevristic(sudoku,sudoku_map,sudoku_hevristic = nothing)
 		sudoku_hevristic = map(is_zero,sudoku)
 	end
 	start = findmax(sudoku_hevristic)[2]
-	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,Int128(0))
+	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,Int64(0))
 end
 
 #=
@@ -78,6 +78,10 @@ end
 	curr -> current field being filled, type CartesianIndex(i, j)
 =#
 function solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,curr,num_steps)
+
+	if num_steps < 0
+		@warn "overflow for number of steps, result will be inaccurate", num_steps
+	end
 
 	hevristic = sudoku_hevristic[curr]
 	for number in 1:maximum(size(sudoku))
