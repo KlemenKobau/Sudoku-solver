@@ -68,10 +68,10 @@ function solveSudokuHevristic(sudoku,sudoku_map,sudoku_hevristic = nothing)
 	if sudoku_hevristic == nothing
 		sudoku_hevristic = map(is_zero,sudoku)
 	else
-		values = map(is_zero,sudoku)
+		values = map(x -> x == 0,sudoku)
 		sudoku_hevristic = sudoku_hevristic .* values
 	end
-	
+
 	start = findmax(sudoku_hevristic)[2]
 	return solveSudokuRek(sudoku,sudoku_map,sudoku_hevristic,start,Int64(0))
 end
