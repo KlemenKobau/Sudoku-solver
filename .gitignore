@@ -3,3 +3,6 @@
 *.jl.*.cov
 *.jl.mem
 deps/deps.jl
+
+# python gitignore
+__pycache__/*
