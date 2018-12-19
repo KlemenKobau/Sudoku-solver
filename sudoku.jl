@@ -65,7 +65,7 @@ function createSudoku(sudoku_map,filled = 17)
 	return (sudoku,solution)
 end
 
-function createHeuristicRandom(sudoku_map,filled = 8)
+function createHeuristicRandom(sudoku_map,filled = 16)
 	sudoku_heuristic = ones(Int8,size(sudoku_map))
 	while filled >= 0
 		i = rand(1:maximum(size(sudoku_map)))
@@ -114,8 +114,8 @@ end
 function solveSudokuRek(sudoku,sudoku_map,sudoku_heuristic,curr,num_steps)
 	if num_steps < 0
 		@warn "overflow for number of steps, result will be inaccurate", num_steps
-	elseif num_steps > 100000
-		error("exceded 100000 steps", sudoku,sudoku_heuristic)
+	elseif num_steps > 1000000
+		error("exceded 1000000 steps", sudoku,sudoku_heuristic)
 	end
 	
 	heuristic = sudoku_heuristic[curr]
