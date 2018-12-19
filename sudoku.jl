@@ -42,14 +42,14 @@ function checkForAvailability(sudoku, sudoku_map, number, cartesian::CartesianIn
 end
 
 # creates a new sudoku based on the sudoku_map, with "filled" fields filled, (filled is a number, that many fields remain filled)
-function createSudoku(sudoku_map,filled = 5)
+function createSudoku(sudoku_map,filled = 17)
 	sudoku = zeros(Int8,size(sudoku_map))
-	sudoku_heuristic
+	sudoku_heuristic = createHeuristicRandom(sudoku_map)
 
-	sudoku = solveSudokuHeuristic(sudoku,sudoku_map)[3]
+	sudoku = solveSudokuHeuristic(sudoku,sudoku_map,sudoku_heuristic)[3]
 	to_leave = zeros(Int8,size(sudoku_map))
 
-	while filled > 0
+	while filled >= 0
 		i = rand(1:maximum(size(sudoku)))
 		j = rand(1:maximum(size(sudoku)))
 		
@@ -65,14 +65,14 @@ function createSudoku(sudoku_map,filled = 5)
 	return (sudoku,solution)
 end
 
-function createHeuristicRandom(sudoku_map,filled = 4)
+function createHeuristicRandom(sudoku_map,filled = 8)
 	sudoku_heuristic = ones(Int8,size(sudoku_map))
-	while filled > 0
-		i = rand(1:maximum(size(sudoku)))
-		j = rand(1:maximum(size(sudoku)))
+	while filled >= 0
+		i = rand(1:maximum(size(sudoku_map)))
+		j = rand(1:maximum(size(sudoku_map)))
 		
-		if sudoku_heuristic[i,j] != 1
-			sudoku_heuristic[i,j] = 1
+		if sudoku_heuristic[i,j] != 2
+			sudoku_heuristic[i,j] = 2
 			filled = filled - 1
 		end
 	end
