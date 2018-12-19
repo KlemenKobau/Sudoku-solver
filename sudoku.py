@@ -59,9 +59,10 @@ def solve_sudoku_rek(sudoku,sudoku_map,sudoku_heuristic,curr,num_steps):
     if num_steps < 0:
         print("WARNING: number of steps overflowed, result will not be accurate")
     elif num_steps > 1000000:
-        print("Number of steps exceeded 1000000")
-        print (sudoku_heuristic,sudoku)
-        return None
+        #print (sudoku_heuristic)
+        #print()
+        #print(sudoku)
+        raise AssertionError("number of steps exceeded 1000000")
     
     heuristic = sudoku_heuristic[curr]
     
