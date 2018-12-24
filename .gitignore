@@ -6,3 +6,7 @@ deps/deps.jl
 
 # python gitignore
 __pycache__/*
+
+#general gitignore
+## ignore images
+images/*

@@ -21,18 +21,22 @@ def average_number_steps_to_solve(num_iterations = 10,filled = 17):
           i += 1
           continue
       summ += solution[1]
+      if summ < 0:
+          raise AssertionError("summ shouldn't be negative")
       #print(summ)
   return summ*1.0 / num_iterations
 
-def plot_time_to_fill_ratio(num_iterations = 10):
+def plot_time_to_fill_ratio(num_iterations = 10,min_solved = 0, max_solved = 25):
     
-    x = [i for i in range(25)]
-    y = [0 for i in range(25)]
+    x = [i for i in range(min_solved, max_solved)]
+    y = [0 for i in range(min_solved,max_solved)]
     
-    for i in range(25):
-        y[i] = average_number_steps_to_solve(num_iterations,i)
-        print(i,"th iteration, average:",y[i])
+    for i in range(min_solved,max_solved):
+        y[i - min_solved] = average_number_steps_to_solve(num_iterations,i)
+        print(i,"th iteration, average:",y[i - min_solved])
     plt.plot(x,y)
+    plt.savefig("images/fill_to_num_iter_" + str(num_iterations) + ".svg")
+    plt.show()
     
 if __name__ == "__main__":
-    plot_time_to_fill_ratio(50)
+    plot_time_to_fill_ratio(50,0,40)
