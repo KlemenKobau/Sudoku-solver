@@ -1,6 +1,14 @@
 import numpy as np
 import random as r
 
+def create_different_color_map(n):
+    out = np.zeros((n,n),np.int16)
+    
+    for i in range(n):
+        for j in range(n):
+            out[i,j] = 1 + n*i + j
+    return out
+
 def create_normal_sudoku_map():
     out = np.zeros((9,9),np.int8)
     inc = np.array([[1,1,1,2,2,2,3,3,3]])
@@ -31,9 +39,11 @@ def check_for_availability(sudoku,sudoku_map,number,coords):
         return True
     return False
 
-def create_heuristic_random(sudoku_map,filled = 17):
+def create_heuristic_random(sudoku_map,fill_per = 0.25):
     sudoku_heuristic = np.ones(sudoku_map.shape,np.int8)
     length = max(sudoku_map.shape)
+    
+    filled = int(length*length * fill_per) + 1
     
     while filled >= 0:
         i = r.randint(0,length - 1)
@@ -58,18 +68,14 @@ def solve_sudoku_heuristic(sudoku,sudoku_map,sudoku_heuristic = None):
 def solve_sudoku_rek(sudoku,sudoku_map,sudoku_heuristic,curr,num_steps):
     if num_steps < 0:
         print("WARNING: number of steps overflowed, result will not be accurate")
-    elif num_steps > 10000000:
+    elif num_steps > 600000:
         #print (sudoku_heuristic)
         #print()
         #print(sudoku)
-        print("number of steps exceeded 10000000")
-        raise AssertionError("number of steps exceeded 10000000")
+        #print("number of steps exceeded 400000")
+        raise AssertionError("number of steps exceeded 600000")
     
     heuristic = sudoku_heuristic[curr]
-    
-    if heuristic == 0:
-        print("sudoku shouldn't be solving fields with heuristic 0")
-        raise AssertionError("solving field with heuristic 0")
     
     for number in range(1,max(sudoku.shape)+1):
         num_steps += 1
