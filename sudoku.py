@@ -25,6 +25,9 @@ def check_row_ava(number,row):
     return True
 
 def check_for_availability(sudoku,sudoku_map,number,coords):
+    if sudoku[coords] != 0:
+        return False
+    
     row_available = check_row_ava(number,sudoku[coords[0],:])
     column_available = check_row_ava(number,sudoku[:,coords[1]])
     
