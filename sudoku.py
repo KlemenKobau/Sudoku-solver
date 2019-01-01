@@ -1,12 +1,24 @@
 import numpy as np
 import random as r
 
-def create_different_color_map(n):
+def create_different_color_map(n = 9):
     out = np.zeros((n,n),np.int16)
     
     for i in range(n):
         for j in range(n):
             out[i,j] = 1 + n*i + j
+    return out
+
+def create_irregural_sudoku_map(n = 9):
+    out = np.zeros((n,n),np.int8)
+    
+    values = [(i,j) for i in range(n) for j in range(n)]
+    
+    r.shuffle(values)
+    
+    for colour in range(1,n+1):
+        for number in range(n):
+            out[values.pop()] = colour
     return out
 
 def create_normal_sudoku_map():
@@ -122,7 +134,4 @@ def create_sudoku(sudoku_map,filled = 17):
     
     
 if __name__ == "__main__":
-    sudoku = np.zeros((9,9),np.int8)
-    sudoku[0,0] = 5
-    sudoku_map = create_normal_sudoku_map()
-    
+    print (irregural_sudoku_map(9))

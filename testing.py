@@ -1,4 +1,4 @@
-from sudoku import solve_sudoku_heuristic, create_sudoku, create_normal_sudoku_map,create_different_color_map
+from sudoku import solve_sudoku_heuristic, create_sudoku, create_normal_sudoku_map,create_different_color_map,create_irregural_sudoku_map
 import matplotlib.pyplot as plt
 from better_solve import presolve
 
@@ -15,7 +15,6 @@ def average_number_steps_to_solve(sudoku_map = None,num_iterations = 10,filled =
       how_many = 0
       if sudoku_map is None:
           sudoku_map = create_normal_sudoku_map()
-      
       try:
           sudoku = create_sudoku(sudoku_map,filled)[0]
           if presol:
@@ -53,7 +52,8 @@ def plot_time_to_size_ratio(num_iterations = 70, min_solved = 3, max_solved = 15
     y = [0 for i in range(min_solved,max_solved)]
     
     for i in range(min_solved,max_solved):
-        sudoku_map = create_different_color_map(i)
+        #sudoku_map = create_different_color_map(i)
+        sudoku_map = create_irregural_sudoku_map(i)
         to_fill = int(i*i * fill_per) + 1
         y[i - min_solved] = average_number_steps_to_solve(sudoku_map,num_iterations,to_fill)
         print(i,"th iteration, average:",y[i - min_solved])
@@ -62,4 +62,5 @@ def plot_time_to_size_ratio(num_iterations = 70, min_solved = 3, max_solved = 15
     plt.show()
 
 if __name__ == "__main__":
-    plot_time_to_fill_ratio(presolve=False)
+    plot_time_to_size_ratio(max_solved = 18)
+    print("irregural size to  solve time")
